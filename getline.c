@@ -10,41 +10,41 @@
 
 int _getline(char **cmd, size_t *cmd_len, FILE *stream)
 {
-        static char buff[BUFFER_SIZE];
-        static size_t i, bsize;
-        int count = 0;
-        char c;
+	static char buff[BUFFER_SIZE];
+	static size_t i, bsize;
+	int count = 0;
+	char c;
 
-        if (!*cmd || *cmd_len < BUFFER_SIZE)
-        {
-                if (allocate_buffer(cmd, cmd_len) == -1)
-                        return (-1);
-        }
+	if (!*cmd || *cmd_len < BUFFER_SIZE)
+	{
+	if (allocate_buffer(cmd, cmd_len) == -1)
+		return (-1);
+	}
 
-        while (1)
-        {
-                if (i == bsize)
-                {
-                        if (fill_buffer(stream, buff, &bsize) == -1)
-                        {
-                                if (count != 0)
-                                        return (count);
-                                else
-                                        return (-1);
-                        }
+	while (1)
+	{
+		if (i == bsize)
+		{
+			if (fill_buffer(stream, buff, &bsize) == -1)
+			{
+				if (count != 0)
+					return (count);
+				else
+					return (-1);
+			}
 
-                i = 0;
-                }
-                c = buff[i++];
-                (*cmd)[count++] = c;
-                if (c == '\n' || count >= BUFFER_SIZE - 1)
-                        break;
-        }
+		i = 0;
+		}
+	c = buff[i++];
+*cmd[count++] = c;
+	if (c == '\n' || count >= BUFFER_SIZE - 1)
+		break;
+	}
 
-        if (count)
-                (*cmd)[count] = '\0';
+	if (count)
+		(*cmd)[count] = '\0';
 
-        return (count);
+	return (count);
 }
 
 /**
@@ -56,18 +56,18 @@ int _getline(char **cmd, size_t *cmd_len, FILE *stream)
 
 int allocate_buffer(char **cmd, size_t *cmd_len)
 {
-        char *new_cmdptr = (char *)malloc(BUFFER_SIZE);
+	char *new_cmdptr = (char *)malloc(BUFFER_SIZE);
 
-        if (!new_cmdptr)
-        {
-                free(*cmd);
-                        return (-1);
-        }
-                free(*cmd);  /*Free the old buffer*/
-                *cmd = new_cmdptr;
-                *cmd_len = BUFFER_SIZE;
+	if (!new_cmdptr)
+	{
+		free(*cmd);
+		return (-1);
+	}
+	free(*cmd);  /*Free the old buffer*/
+	*cmd = new_cmdptr;
+	*cmd_len = BUFFER_SIZE;
 
-        return (0);
+return (0);
 }
 
 /**
@@ -79,11 +79,11 @@ int allocate_buffer(char **cmd, size_t *cmd_len)
  */
 int fill_buffer(FILE *stream, char *buff, size_t *bsize)
 {
-        ssize_t bytesRead = read(fileno(stream), buff, BUFFER_SIZE);
+	ssize_t bytesRead = read(fileno(stream), buff, BUFFER_SIZE);
 
-        if (bytesRead <= 0)
-                return (bytesRead);
+	if (bytesRead <= 0)
+		return (bytesRead);
 
-        *bsize = bytesRead;
-        return (0);
+	*bsize = bytesRead;
+	return (0);
 }
