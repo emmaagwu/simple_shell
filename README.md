@@ -1,1 +1,1 @@
-This is a simple_shell project that works in  interactive and non-interactive mode. This project is done in a team of 2.
+The simple_shell project  is an incredible project at ALX Software Engineering that tests one's knowledge on the concepts covered in C programming and Shell Scripting. This project is done in a team of 2. It's highly required that the codes written work in  interactive, as well as non-interactive mode.
